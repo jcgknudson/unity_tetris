@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
             player_rotate_input = KeyCode.Space;
         }
 
-        active_controllable = active_object.GetComponent<FallingBox>();
+        active_controllable = active_object.GetComponent<Tetrimino>();
 	}
 
     // Update is called once per frame
