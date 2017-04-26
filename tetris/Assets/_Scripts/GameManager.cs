@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    private static GameManager instance;
     public float tick_delay;
     public GameObject player;
     private float time_of_last_tick;
     public List<ITickable> tickables;
-	
+
+    public static GameManager GetInstance() {
+        return instance;
+    }
+
 	void Start () {
+        instance = this;
         tickables = new List<ITickable>();
         time_of_last_tick = Time.time;
         player = new GameObject();
