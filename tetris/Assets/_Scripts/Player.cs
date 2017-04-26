@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
 	}
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void Update() {
         //Move left
         if (Input.GetKeyDown(player_left_input)) {
             active_controllable.MoveLeft();
