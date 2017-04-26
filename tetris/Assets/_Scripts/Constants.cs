@@ -13,5 +13,7 @@ namespace Assets
         public static float PLAYER_HORIZONTAL_SHIFT_HOLD_LATENCY = 0.1f;
         public static float PLAYER_SOFT_DROP_HOLD_THRESHOLD = 0.1f;
         public static float PLAYER_SOFT_DROP_HOLD_LATENCY = 0.1f;
+        public static short GAME_WIDTH = 10;
+        public static short GAME_HEIGHT = 20;
     }
 }
