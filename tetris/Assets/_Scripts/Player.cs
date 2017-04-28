@@ -55,20 +55,21 @@ public class Player : MonoBehaviour {
             player_soft_drop_input = KeyCode.S;
             player_rotate_input = KeyCode.Space;
         }
-
-        active_controllable = active_object.GetComponent<Tetrimino>();
+        if(active_object)
+            active_controllable = active_object.GetComponent<Tetromino>();
 	}
 
     // Update is called once per frame
     void Update() {
         //Move left
-        if (Input.GetKeyDown(player_left_input)) {
-            active_controllable.MoveLeft();
-        } else if (Input.GetKeyDown(player_right_input)) {
-            active_controllable.MoveRight();
-        } else if (Input.GetKeyDown(player_rotate_input)) {
-            active_controllable.Rotate();
-        } 
-        
+        if (active_controllable != null) {
+            if (Input.GetKeyDown(player_left_input)) {
+                active_controllable.MoveLeft();
+            } else if (Input.GetKeyDown(player_right_input)) {
+                active_controllable.MoveRight();
+            } else if (Input.GetKeyDown(player_rotate_input)) {
+                active_controllable.Rotate();
+            }
+        }
 	}
 }
