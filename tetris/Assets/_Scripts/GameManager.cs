@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         tickables = new List<ITickable>();
         time_elapsed_since_tick = Time.time;
+
     }
 	
 	// Update is called once per frame
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour {
         if (time_elapsed_since_tick > tick_delay) {
             time_elapsed_since_tick = 0;
             Debug.Log("Game manager tick");
+
             Tick();
         }
 
