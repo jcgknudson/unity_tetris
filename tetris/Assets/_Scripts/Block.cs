@@ -26,12 +26,13 @@ public class Block : IControllable, ITickable {
     public void MoveLeft()
     {
         block.transform.Translate(-1, 0, 0);
-        position_x += 1;
+        position_x += -1;
     }
 
     public void MoveRight()
     {
         block.transform.Translate(1, 0, 0);
+        position_x += 1;
     }
 
     public void Rotate()
