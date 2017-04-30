@@ -5,26 +5,25 @@ using UnityEngine;
 
 
 public class Tetromino : IControllable, ITickable {
-    private static GameManager manager = GameManager.Instance;
-    private List<Block> blocks;
+    public List<Block> blocks;
 
     public static Tetromino Create(char tetrominoType)
     {
         Tetromino tetromino = new Tetromino();
-        
+
         switch (tetrominoType) {
             case 'O':
-                for(int x = 0; x < 2; x++) {
-                    for(int y = 0; y < 2; y++)
+                for (int x = 0; x < 2; x++) {
+                    for (int y = 0; y < 2; y++)
                         tetromino.blocks.Add(new Block(x, y));
                 }
                 break;
             case 'I':
-                for(int y = 0; y < 4; y++)
+                for (int y = 0; y < 4; y++)
                     tetromino.blocks.Add(new Block(0, y));
                 break;
             case 'T':
-                for(int x = 0; x < 3; x++) 
+                for (int x = 0; x < 3; x++)
                     tetromino.blocks.Add(new Block(x, 0));
                 tetromino.blocks.Add(new Block(1, 1));
                 break;
@@ -39,23 +38,20 @@ public class Tetromino : IControllable, ITickable {
                 tetromino.blocks.Add(new Block(1, 2));
                 break;
             case 'S':
-                tetromino.blocks.Add(new Block(0,1));
-                tetromino.blocks.Add(new Block(1,1));
-                tetromino.blocks.Add(new Block(1,0));
-                tetromino.blocks.Add(new Block(2,0));
+                tetromino.blocks.Add(new Block(0, 1));
+                tetromino.blocks.Add(new Block(1, 1));
+                tetromino.blocks.Add(new Block(1, 0));
+                tetromino.blocks.Add(new Block(2, 0));
                 break;
             case 'Z':
-                tetromino.blocks.Add(new Block(0,0));
-                tetromino.blocks.Add(new Block(1,0));
-                tetromino.blocks.Add(new Block(1,1));
-                tetromino.blocks.Add(new Block(2,1));
+                tetromino.blocks.Add(new Block(0, 0));
+                tetromino.blocks.Add(new Block(1, 0));
+                tetromino.blocks.Add(new Block(1, 1));
+                tetromino.blocks.Add(new Block(2, 1));
                 break;
             default:
                 throw new ArgumentException("Unrecognized tetromino character");
         }
-
-        manager.tickables.Add(tetromino);
-
         return tetromino;
     }
 
@@ -92,6 +88,22 @@ public class Tetromino : IControllable, ITickable {
         foreach (IControllable block in blocks)
         {
             block.Rotate();
+        }
+    }
+
+    public bool Collided() {
+        foreach (Block block in blocks) {
+            if (block.Collided()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void Translate(int x, int y){
+        foreach(Block block in blocks)
+        {
+            block.Translate(x, y);
         }
     }
 
