@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     private float time_elapsed_since_tick = 0f;
 
     public List<ITickable> tickables;
+    public Tetromino active_tetromino;
+    public bool[,] grid;
     //public List<Grid> grids;
 
     private static GameManager instance = null;
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         tickables = new List<ITickable>();
         time_elapsed_since_tick = Time.time;
-
+        grid = new bool[Assets.Constants.GAME_WIDTH, Assets.Constants.GAME_HEIGHT];
     }
 	
 	// Update is called once per frame
@@ -45,7 +47,7 @@ public class GameManager : MonoBehaviour {
         
         if (time_elapsed_since_tick > tick_delay) {
             time_elapsed_since_tick = 0;
-            Debug.Log("Game manager tick");
+           // Debug.Log("Game manager tick");
 
             Tick();
         }
@@ -67,12 +69,34 @@ public class GameManager : MonoBehaviour {
             Tetromino.Create('Z');
         }
 	}
+    public void SetTetromino()
+    {
+        foreach (Block block in active_tetromino.blocks)
+        {
+            grid[block.position_x, block.position_y] = true;
+        }
+        active_tetromino = null;
+    }
 
     void Tick() {
-        foreach (ITickable tickable in tickables) {
-            tickable.Tick();
+        //TODO check for win
+        //TODO check for loss
+        //TODO check for/handle completed lines
+        if (active_tetromino == null) {
+            //TODO change this to randomly? select tetromino type
+            active_tetromino = Tetromino.Create('I');
+            active_tetromino.Translate(Assets.Constants.START_WIDTH, Assets.Constants.START_HEIGHT);
+            Debug.Log("Created new active Tet");
+            foreach (Block block in active_tetromino.blocks) {
+                Debug.Log(" at (" + block.position_x + ", " + block.position_y + ")");
+            }
+            return;
         }
-
+        if (active_tetromino.Collided()) {
+            SetTetromino();
+            return;
+        }
+        active_tetromino.Tick();
     }
 
 }
