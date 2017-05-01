@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Tetromino : IControllable, ITickable {
     public List<Block> blocks;
-
+    private GameManager manager;
     public static Tetromino Create(char tetrominoType)
     {
         Tetromino tetromino = new Tetromino();
@@ -52,6 +52,7 @@ public class Tetromino : IControllable, ITickable {
             default:
                 throw new ArgumentException("Unrecognized tetromino character");
         }
+        tetromino.manager = GameManager.Instance;
         return tetromino;
     }
 
@@ -62,6 +63,15 @@ public class Tetromino : IControllable, ITickable {
 
     public void MoveDown()
     {
+        foreach (Block block in blocks)
+        {
+            if (manager.static_blocks[block.position_x, block.position_y - 1] != null) {
+                return;
+            }
+            if (block.position_y < 1) {
+                return;
+            }
+        }
         foreach (IControllable block in blocks) {
             block.MoveDown();
         }
@@ -69,6 +79,17 @@ public class Tetromino : IControllable, ITickable {
 
     public void MoveLeft()
     {
+        foreach (Block block in blocks)
+        {
+            if (block.position_x < 1)
+            {
+                return;
+            }
+            if (manager.static_blocks[block.position_x - 1, block.position_y] != null)
+            {
+                return;
+            }
+        }
         foreach (IControllable block in blocks)
         {
             block.MoveLeft();
@@ -77,6 +98,17 @@ public class Tetromino : IControllable, ITickable {
 
     public void MoveRight()
     {
+        foreach (Block block in blocks)
+        {
+            if (block.position_x >= Assets.Constants.GAME_WIDTH - 1)
+            {
+                return;
+            }
+            if (manager.static_blocks[block.position_x + 1, block.position_y] != null)
+            {
+                return;
+            }
+        }
         foreach (IControllable block in blocks)
         {
             block.MoveRight();
