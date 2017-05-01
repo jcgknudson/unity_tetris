@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     //public List<Grid> grids;
 
     private static GameManager instance = null;
+    
     //For singleton
     public static GameManager Instance
     {
@@ -46,8 +47,6 @@ public class GameManager : MonoBehaviour {
         
         if (time_elapsed_since_tick > tick_delay) {
             time_elapsed_since_tick = 0;
-           // Debug.Log("Game manager tick");
-
             Tick();
         }
 
@@ -78,12 +77,15 @@ public class GameManager : MonoBehaviour {
     }
 
     void Tick() {
-        //TODO check for win
         //TODO check for loss
         //TODO check for/handle completed lines
         if (active_tetromino == null) {
             //TODO change this to randomly? select tetromino type
-            active_tetromino = Tetromino.Create('I');
+            int tetromino_str_sz = Assets.Constants.GAME_TETROMINOS.Length;
+            char random_tetromino = 
+                Assets.Constants.GAME_TETROMINOS[Random.Range(0, tetromino_str_sz -1)];
+
+            active_tetromino = Tetromino.Create(random_tetromino);
             active_tetromino.Translate(Assets.Constants.START_WIDTH, Assets.Constants.START_HEIGHT);
             Debug.Log("Created new active Tet");
             foreach (Block block in active_tetromino.blocks) {
