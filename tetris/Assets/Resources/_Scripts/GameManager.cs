@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour {
         } else
             instance = this;
         DontDestroyOnLoad(gameObject);
-        
     }
 
     void Start () {
