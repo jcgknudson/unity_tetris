@@ -10,6 +10,7 @@ public class Block : IControllable, ITickable {
 
     public static GameObject block_prefab = (GameObject)Resources.Load(Assets.Constants.BLOCK_PATH);
     private GameObject this_block;
+
     public Block(int x, int y) {
         //TODO: rewrite this to be relative to the GameManager's grid
         Debug.Log(Assets.Constants.BLOCK_PATH);
@@ -65,5 +66,10 @@ public class Block : IControllable, ITickable {
 
     public void Tick() {
         MoveDown();
+    }
+
+    public void Destroy()
+    {
+
     }
 }
