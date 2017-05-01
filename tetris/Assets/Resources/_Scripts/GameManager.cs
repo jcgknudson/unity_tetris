@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public List<ITickable> tickables;
     public Tetromino active_tetromino;
     public bool[,] grid;
-    //public List<Grid> grids;
+    public List<char> next_tetrominoes;
 
     private static GameManager instance = null;
     
@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour {
         tickables = new List<ITickable>();
         time_elapsed_since_tick = Time.time;
         grid = new bool[Assets.Constants.GAME_WIDTH, Assets.Constants.GAME_HEIGHT];
+
+        //Fill tetromino buffer with random tetrominoes
+        for(int i = 0; i < Assets.Constants.GAME_TETROMINO_BUFFER_SIZE; i++) {
+
+        }
     }
 	
 	// Update is called once per frame
@@ -80,12 +85,7 @@ public class GameManager : MonoBehaviour {
         //TODO check for loss
         //TODO check for/handle completed lines
         if (active_tetromino == null) {
-            //TODO change this to randomly? select tetromino type
-            int tetromino_str_sz = Assets.Constants.GAME_TETROMINOS.Length;
-            char random_tetromino = 
-                Assets.Constants.GAME_TETROMINOS[Random.Range(0, tetromino_str_sz -1)];
-
-            active_tetromino = Tetromino.Create(random_tetromino);
+            active_tetromino = Tetromino.Create(Assets.Utilities.GetRandomTetromino());
             active_tetromino.Translate(Assets.Constants.START_WIDTH, Assets.Constants.START_HEIGHT);
             Debug.Log("Created new active Tet");
             foreach (Block block in active_tetromino.blocks) {
