@@ -55,8 +55,6 @@ public class Player : MonoBehaviour {
             player_soft_drop_input = KeyCode.S;
             player_rotate_input = KeyCode.Space;
         }
-        if(active_object)
-            active_controllable = active_object.GetComponent<Tetromino>();
 	}
 
     // Update is called once per frame

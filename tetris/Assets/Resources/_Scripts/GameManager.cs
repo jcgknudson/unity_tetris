@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour {
         if (active_tetromino == null) {
             active_tetromino = Tetromino.Create(next_tetrominoes.Dequeue());
             active_tetromino.Translate(Assets.Constants.START_WIDTH, Assets.Constants.START_HEIGHT);
-
+            GameManager.Instance.GetComponentInParent<Player>().active_controllable = active_tetromino;
             next_tetrominoes.Enqueue(Assets.Utilities.GetRandomTetromino());
 
             Debug.Log("Created new active Tet");
