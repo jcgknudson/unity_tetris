@@ -21,5 +21,8 @@ namespace Assets
         public static string GAME_TETROMINOS = "OITLJSZ";
         public static int START_WIDTH = 5;
         public static int START_HEIGHT = 10;
+
+        ///////////////////PREFAB PATHS/////////////////////////////////////
+        public static string BLOCK_PATH = "_Prefabs/Block";
     }
 }
