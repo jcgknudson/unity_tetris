@@ -8,9 +8,8 @@ public class GameManager : MonoBehaviour {
     private float time_elapsed_since_tick = 0f;
 
     public List<ITickable> tickables;
+    public Block[,] static_blocks;
     public Tetromino active_tetromino;
-    public bool[,] grid;
-    //public List<Grid> grids;
 
     private static GameManager instance = null;
     //For singleton
@@ -38,7 +37,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         tickables = new List<ITickable>();
         time_elapsed_since_tick = Time.time;
-        grid = new bool[Assets.Constants.GAME_WIDTH, Assets.Constants.GAME_HEIGHT];
+        static_blocks = new Block[Assets.Constants.GAME_WIDTH, Assets.Constants.GAME_HEIGHT];
     }
 	
 	// Update is called once per frame
@@ -73,7 +72,10 @@ public class GameManager : MonoBehaviour {
     {
         foreach (Block block in active_tetromino.blocks)
         {
-            grid[block.position_x, block.position_y] = true;
+            if (static_blocks[block.position_x, block.position_y] != null) {
+                throw new System.Exception("Overlapping block exception");
+            }
+            static_blocks[block.position_x, block.position_y] = block;
         }
         active_tetromino = null;
     }

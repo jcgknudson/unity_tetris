@@ -52,7 +52,7 @@ public class Block : IControllable, ITickable {
             return true;
         }
         //Handle collision with other cubes
-        if (manager.grid[position_x, position_y - 1])
+        if (manager.static_blocks[position_x, position_y - 1] != null)
         {
             return true;
         }
